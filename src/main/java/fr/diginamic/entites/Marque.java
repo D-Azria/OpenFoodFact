@@ -26,12 +26,12 @@ public class Marque {
         this.libelle = libelle;
     }
 
-    public void addProduit(Produit produit){
+/*    public void addProduit(Produit produit){
         if(produit != null){
             produits.add(produit);
-            produit.setMarque(this);
+            //produit.setMarque(this);
         }
-    }
+    }*/
 
     public Integer getId() {
         return id;

@@ -353,13 +353,13 @@ public class Produit {
     }
 
     public void setMarque(Marque marque) {
-        if(this.marque != null){
+       /* if(this.marque != null){
             this.marque.getProduits().remove(this);
-        }
+        }*/
         this.marque = marque;
-        if(this.marque != null){
+/*        if(this.marque != null){
             this.marque.getProduits().add(this);
-        }
+        }*/
 
     }
 

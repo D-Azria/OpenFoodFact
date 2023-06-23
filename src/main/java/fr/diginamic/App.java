@@ -35,7 +35,7 @@ public class App {
 
         try(EntityManagerFactory emf = Persistence.createEntityManagerFactory("open_food_fact");
             EntityManager em = emf.createEntityManager()){
-            em.getTransaction().begin();
+
 
             Set<Marque> marques = new HashSet<>();
             Set<Categorie> categories = new HashSet<>();
@@ -43,9 +43,17 @@ public class App {
             Set<Allergene> allAllergenes = new HashSet<>();
             Set<Ingredient> allIngredients = new HashSet<>();
             Set<Produit> allProduits = new HashSet<>();
+            int i = 1;
+            int k =1;
+
+
 
             for(String oneData:allData){
                 OFFSignleProduct singleData = ParseurLigne.parseLigne(oneData);
+
+                em.getTransaction().begin();
+                System.out.println("OPEN : " + k);
+                k++;
 
                 Produit produit = new Produit(
                         singleData.getOffProducts().getNom(),
@@ -74,27 +82,21 @@ public class App {
                         singleData.getOffProducts().getBetaCarotene100g(),
                         singleData.getOffProducts().getPresenceHuilePalme());
 
+
+                //System.out.println("PRODUIT");
+
+                Categorie categorie = null;
                 if(categories.contains(singleData.getOffCategorie())){
                     //System.out.println("CAT : false");
                     produit.setCategorie(singleData.getOffCategorie());
                 } else {
                     //System.out.println("CAT : true");
-                    Categorie categorie = new Categorie(singleData.getOffCategorie().getLibelle());
+                    categorie = new Categorie(singleData.getOffCategorie().getLibelle());
                     categories.add(categorie);
                     produit.setCategorie(categorie);
-                    //em.persist(categorie);
+                    em.persist(categorie);
                 }
 
-                if(marques.contains(singleData.getOffMarque())){
-                    //System.out.println("MARQUE : false");
-                    produit.setMarque(singleData.getOffMarque());
-                } else {
-                    //System.out.println("MARQUE : true");
-                    Marque marque = new Marque(singleData.getOffMarque().getLibelle());
-                    marques.add(marque);
-                    produit.setMarque(marque);
-                    //em.persist(marque);
-                }
 
                 for (Additif a:singleData.getOffAdditifs()){
                     if(allAdditifs.contains(a)){
@@ -105,7 +107,7 @@ public class App {
                         Additif additif = new Additif(a.getCode(), a.getLibelle());
                         allAdditifs.add(additif);
                         produit.addAdditif(additif);
-                        //em.persist(additif);
+                        em.persist(additif);
                     }
                 }
 
@@ -118,9 +120,10 @@ public class App {
                         Allergene allergene = new Allergene(a.getLibelle());
                         allAllergenes.add(allergene);
                         produit.addAllergenes(allergene);
-                        //em.persist(allergene);
+                        em.persist(allergene);
                     }
                 }
+
 
                 for (Ingredient ing:singleData.getOffIngredients()){
                     if(allIngredients.contains(ing)){
@@ -129,22 +132,37 @@ public class App {
                         Ingredient ingredient = new Ingredient(ing.getLibelle());
                         allIngredients.add(ingredient);
                         produit.addIngredient(ingredient);
-                        //em.persist(ingredient);
+                        em.persist(ingredient);
                     }
+                    System.out.println(i + " - " + ing);
+                    i++;
+                }
+
+
+                if(marques.contains(singleData.getOffMarque())){
+                    //System.out.println("MARQUE : false");
+                    produit.setMarque(singleData.getOffMarque());
+                } else {
+                    //System.out.println("MARQUE : true");
+                    Marque marque = new Marque(singleData.getOffMarque().getLibelle());
+                    marques.add(marque);
+                    produit.setMarque(marque);
+                    em.persist(marque);
                 }
 
                 allProduits.add(produit);
-                //System.out.println("PRODUIT");
-                em.persist(produit);
+                //em.persist(produit);
 
+                System.out.println("COMMIT");
+                em.getTransaction().commit();
             }
-            int i = 1;
+            int j = 1;
             for (Produit p:allProduits){
-                System.out.println(i + " - " + p.getNom());
-                i++;
+                //System.out.println(j + " - " + p.getNom());
+                j++;
             }
 
-            em.getTransaction().commit();
+
 
         }
     }

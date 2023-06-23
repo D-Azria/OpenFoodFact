@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class ParseurLigne {
     public static OFFSignleProduct parseLigne(String l){
-        String ligne = l.replaceAll("[^a-zA-ZàâäéèêëîïôöùûüçŒœ'\\|,:\\- 0-9.()]", "");
+        String ligne = l.replaceAll("[^a-zA-ZÉàâäéèêëîïôöùûüçŒœ'\\|,:\\- 0-9.()%]", "");
         String[] token = ligne.split("\\|", -1);
         String categorie = token[0];
         String marque = token[1];
@@ -52,9 +52,11 @@ public class ParseurLigne {
         Produit produit = new Produit(nom, thisGrade, energie, graisse, sucres, fibres, proteines, sel, vitA, vitD, vitE, vitK, vitC, vitB1, vitB2, vitPP, vitB6, vitB9, vitB12, calcium, magnesium, iron, fer, betaCarotene, presenceHuilePalme);
         //System.out.println(produit);
         //singleProduit.setOffSingleProducts(produit);
-        Marque thisMarque = new Marque(marque);
 
-        Categorie thisCategorie = new Categorie(categorie);
+        Marque thisMarque = MarqueParser.parseMarque(marque);
+
+        Categorie thisCategorie = CategorieParser.parseCategorie(categorie);
+
         Set<Allergene> allergenesSet = new HashSet<>();
         if(!allergenes.isEmpty()){
             allergenesSet = AllergeneParser.parseAllergene(allergenes);
@@ -66,7 +68,7 @@ public class ParseurLigne {
         }
         //Set<Additif> additifsSet = new HashSet<>();
         Set<Ingredient> ingredientSet = new HashSet<>();
-        if(!ingredientSet.isEmpty()){
+        if(ingredientSet.isEmpty()){
             ingredientSet = IngredientParser.parseIngredient(ingredients);
         }
 

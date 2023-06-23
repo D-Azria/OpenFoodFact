@@ -43,13 +43,13 @@ public class LectureCsv {
         lines.set(10070, lines.get(10070).replace("jaune d`oeuf", "jaune d'oeuf"));
         lines.set(10070, lines.get(10070).replace("de |’œuf", "de l'oeuf"));
         lines.set(11181, lines.get(11181).replace("moutarde à |’ancienne", "moutarde à l’ancienne"));
-        System.out.println("Après modif : "+lines.get(3129));
+/*        System.out.println("Après modif : "+lines.get(3129));
         System.out.println("Après modif : "+lines.get(6375));
         System.out.println("Après modif : "+lines.get(6610));
         System.out.println("Après modif : "+lines.get(8428));
         System.out.println("Après modif : "+lines.get(8990));
         System.out.println("AVANT modif : "+lines.get(10070));
-        System.out.println("Après modif : "+lines.get(11181));
+        System.out.println("Après modif : "+lines.get(11181));*/
 
         lines.remove(0);
         return lines;

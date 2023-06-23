@@ -3,6 +3,7 @@ package fr.diginamic.entites;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -49,10 +50,22 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient{" +
-                "id=" + id +
-                ", libelle='" + libelle + '\'' +
-                ", produits=" + produits +
-                '}';
+        return "Ingredient : " + libelle ;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Ingredient ingredient = (Ingredient) o;
+        return Objects.equals(libelle, ingredient.libelle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(libelle);
     }
 }
