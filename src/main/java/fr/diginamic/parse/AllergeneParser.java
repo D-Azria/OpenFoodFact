@@ -15,7 +15,7 @@ public class AllergeneParser {
         Set<Allergene> allergeneSet = new HashSet<>();
         String [] token = allergenes.split(",");
         for (String t:token){
-            String cleanedFirstPass = t.replace("en:", "").replace("fr:", "").replace(":", "").replace("  ", " ").replace("ble ", "blé ").replace("Ble ", "blé ").replace("rme", "rème").replace("bié", "blé").replaceAll("\\*", "");
+            String cleanedFirstPass = t.replace("en:", "").replace("fr:", "").replace(":", "").replace("  ", " ").replace("ble ", "blé ").replace("Ble ", "blé ").replace("rme", "rème").replace("bié", "blé").replace("\\*", "");
             String cleanedSecondPass = cleanedFirstPass.replace("-", " ");
             String cleanedThirdPass = removeSpaceFirst(cleanedSecondPass);
             String cleanedAllergenes = onlyFirstLetterToUpperCase(cleanedThirdPass);

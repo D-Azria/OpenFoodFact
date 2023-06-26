@@ -45,9 +45,9 @@ public class IngredientParser {
     }
 
     private static StringTokenizer getStringTokenizer(String ingredients) {
-        String stringFirstPass = ingredients.replaceAll("(?<![a-zA-Z])\\d+(\\.\\d+)?%?|(?<![a-zA-Z])\\d{2,3}(?![\\d.])", "").replaceAll("()","").replaceAll("\\*", "").replaceAll("%", "").replaceAll("_","").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\[","");
+        String stringFirstPass = ingredients.replaceAll("(?<![a-zA-Z])\\d+(\\.\\d+)?%?|(?<![a-zA-Z])\\d{2,3}(?![\\d.])", "").replaceAll("()","").replace("*", "").replace("%", "").replace("_","").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\[","");
         String stringSecondPass = stringFirstPass.replaceAll("  ", " ");
-        String stringToTokenize = stringSecondPass.replaceAll(",",";").replaceAll("-", ";").replaceAll("\\.",";").replaceAll("\\s*g$","");
+        String stringToTokenize = stringSecondPass.replace(",",";").replace("-", ";").replace(".",";").replaceAll("\\s*g$","");
         StringTokenizer tokenizer = new StringTokenizer(stringToTokenize, ";");
         return tokenizer;
     }

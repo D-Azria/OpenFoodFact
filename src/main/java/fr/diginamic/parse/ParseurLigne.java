@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class ParseurLigne {
     public static OFFSignleProduct parseLigne(String l){
-        String lineFirstParse = l.replaceAll("[^a-zA-ZÉàâäéèêëîïôöùûüçŒœ'\\|\\- 0-9.,;:_*()%\\[\\]]", "");
-        String lineToSplit = lineFirstParse.replaceAll("", "");
+        String lineToSplit = l.replaceAll("[^a-zA-ZÉàâäéèêëîïôöùûüçŒœ'\\|\\- 0-9.,;:_*()%\\[\\]]", "");
+        //String lineToSplit = lineFirstParse.replaceAll("", "");
         String[] token = lineToSplit.split("\\|", -1);
         String categorie = token[0];
         String marque = token[1];

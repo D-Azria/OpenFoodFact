@@ -27,24 +27,20 @@ public class App {
             Set<Allergene> allAllergenes = new HashSet<>();
             Set<Ingredient> allIngredients = new HashSet<>();
             Set<Produit> allProduits = new HashSet<>();
-            int k =1;
+/*            int k =1;
             int al = 1;
             int ad = 1;
             int pr = 1;
             int m = 1;
             int c= 1;
-            int i = 1;
-
-
-
+            int i = 1;*/
 
             for(String oneData:allData){
                 OFFSignleProduct singleData = ParseurLigne.parseLigne(oneData);
 
                 em.getTransaction().begin();
-                System.out.println("OPEN : " + k);
-                k++;
-
+/*                System.out.println("OPEN : " + k);
+                k++;*/
 
                 Produit produit = new Produit(
                         singleData.getOffProducts().getNom(),
@@ -72,7 +68,7 @@ public class App {
                         singleData.getOffProducts().getFer100g(),
                         singleData.getOffProducts().getBetaCarotene100g(),
                         singleData.getOffProducts().getPresenceHuilePalme());
-                System.out.println(pr + " - " + produit.getNom());
+                //System.out.println(pr + " - " + produit.getNom());
 
                 Categorie categorie = null;
                 if(categories.contains(singleData.getOffCategorie())){
@@ -87,8 +83,8 @@ public class App {
                     categories.add(categorie);
                     produit.setCategorie(categorie);
                     em.persist(categorie);
-                    System.out.println(c + " - " + categorie.getLibelle());
-                    c++;
+/*                    System.out.println(c + " - " + categorie.getLibelle());
+                    c++;*/
                 }
 
                 for (Additif a:singleData.getOffAdditifs()){
@@ -102,8 +98,8 @@ public class App {
                         produit.addAdditif(additif);
                         em.persist(additif);
                     }
-                    System.out.println(ad + " - " + a);
-                    ad++;
+/*                    System.out.println(ad + " - " + a);
+                    ad++;*/
                 }
 
                 for (Allergene a:singleData.getOffAllergenes()) {
@@ -117,13 +113,10 @@ public class App {
                         produit.addAllergenes(allergene);
                         em.persist(allergene);
                     }
-                    System.out.println(al + " - " + a);
-                    al++;
+/*                    System.out.println(al + " - " + a);
+                    al++;*/
                 }
 
-                if(k==2086){
-                    System.out.println(k + " - " + singleData.getOffIngredients());
-                }
                 for (Ingredient ing:singleData.getOffIngredients()){
                     if(allIngredients.contains(ing)){
                         produit.addIngredient(ing);
@@ -133,8 +126,8 @@ public class App {
                         produit.addIngredient(ingredient);
                         em.persist(ingredient);
                     }
-                    System.out.println(i + " - " + ing);
-                    i++;
+/*                    System.out.println(i + " - " + ing);
+                    i++;*/
                 }
 
 
@@ -151,17 +144,16 @@ public class App {
                     marques.add(marque);
                     produit.setMarque(marque);
                     em.persist(marque);
-                    System.out.println(m + " - " + marque.getLibelle());
-                    m++;
+/*                    System.out.println(m + " - " + marque.getLibelle());
+                    m++;*/
                 }
 
                 allProduits.add(produit);
                 em.persist(produit);
-                System.out.println(pr + " - " + produit.getNom());
+/*                System.out.println(pr + " - " + produit.getNom());
                 System.out.println(produit);
                 pr++;
-
-                System.out.println("COMMIT");
+                System.out.println("COMMIT");*/
                 em.getTransaction().commit();
             }
         }

@@ -10,9 +10,8 @@ public class ProduitDao implements IProduitDao{
     @Override
     public Set<Produit> extraire() throws Exception {
         Set<Produit> produits = new HashSet<>();
-
-
-
         return null;
     }
+
+
 }
