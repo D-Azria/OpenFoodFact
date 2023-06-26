@@ -1,8 +1,6 @@
 package fr.diginamic.entites;
 
 import fr.diginamic.utils.NutritionGradeFr;
-
-import java.util.List;
 import java.util.Set;
 
 public class OFFSignleProduct {

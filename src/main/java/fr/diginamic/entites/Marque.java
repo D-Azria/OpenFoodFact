@@ -57,6 +57,10 @@ public class Marque {
         this.produits = produits;
     }
 
+    public void addProduit(Produit produit) {
+        produits.add(produit);
+    }
+
     @Override
     public String toString() {
         return "Marque : " + id + " - " + libelle;

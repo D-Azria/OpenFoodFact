@@ -75,8 +75,6 @@ public class ParseurLigne {
 
         OFFSignleProduct newProduct = new OFFSignleProduct(produit, thisGrade, thisMarque, additifsSet, allergenesSet, thisCategorie, ingredientSet);
 
-        //System.out.println("Parse allergène : " + token[28]);
-        //System.out.println("Parse additif : " + token[29]);
         return newProduct;
     }
 

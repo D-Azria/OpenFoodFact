@@ -133,19 +133,30 @@ public class Produit {
     public void addAdditif(Additif additif){
         if(additif != null){
             additifs.add(additif);
+            additif.addProduit(this);
         }
     }
 
     public void addAllergenes(Allergene allergene){
         if(allergene != null){
             allergenes.add(allergene);
+            allergene.addProduit(this);
         }
     }
 
     public void addIngredient(Ingredient ingredient){
         if(ingredient != null){
             ingredients.add(ingredient);
+            ingredient.addProduit(this);
         }
+    }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
     }
 
     public String getNom() {
@@ -353,14 +364,8 @@ public class Produit {
     }
 
     public void setMarque(Marque marque) {
-       /* if(this.marque != null){
-            this.marque.getProduits().remove(this);
-        }*/
         this.marque = marque;
-/*        if(this.marque != null){
-            this.marque.getProduits().add(this);
-        }*/
-
+        marque.addProduit(this);
     }
 
     public Categorie getCategorie() {
@@ -369,6 +374,7 @@ public class Produit {
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
+        categorie.addProduit(this);
     }
 
     public Set<Additif> getAdditifs() {

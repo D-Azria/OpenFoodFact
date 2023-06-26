@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="INGREDIENT")
+@Cacheable
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +47,10 @@ public class Ingredient {
 
     public void setProduits(Set<Produit> produits) {
         this.produits = produits;
+    }
+
+    public void addProduit(Produit produit) {
+        produits.add(produit);
     }
 
     @Override
