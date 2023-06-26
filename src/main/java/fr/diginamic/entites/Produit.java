@@ -424,8 +424,8 @@ public class Produit {
                 ", fer100g=" + fer100g +
                 ", betaCarotene100g=" + betaCarotene100g +
                 ", presenceHuilePalme=" + presenceHuilePalme +
-                ", marque=" + marque +
-                ", categorie=" + categorie +
+                ", marque=" + marque.getLibelle() +
+                ", categorie=" + categorie.getLibelle() +
                 ", additifs=" + additifs +
                 ", allergenes=" + allergenes +
                 ", ingredients=" + ingredients +

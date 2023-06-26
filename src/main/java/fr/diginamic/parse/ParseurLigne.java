@@ -8,8 +8,9 @@ import java.util.Set;
 
 public class ParseurLigne {
     public static OFFSignleProduct parseLigne(String l){
-        String ligne = l.replaceAll("[^a-zA-ZÉàâäéèêëîïôöùûüçŒœ'\\|,:\\- 0-9.()%]", "");
-        String[] token = ligne.split("\\|", -1);
+        String lineFirstParse = l.replaceAll("[^a-zA-ZÉàâäéèêëîïôöùûüçŒœ'\\|\\- 0-9.,;:_*()%\\[\\]]", "");
+        String lineToSplit = lineFirstParse.replaceAll("", "");
+        String[] token = lineToSplit.split("\\|", -1);
         String categorie = token[0];
         String marque = token[1];
         String nom = token[2];
@@ -74,6 +75,8 @@ public class ParseurLigne {
 
         OFFSignleProduct newProduct = new OFFSignleProduct(produit, thisGrade, thisMarque, additifsSet, allergenesSet, thisCategorie, ingredientSet);
 
+        //System.out.println("Parse allergène : " + token[28]);
+        //System.out.println("Parse additif : " + token[29]);
         return newProduct;
     }
 

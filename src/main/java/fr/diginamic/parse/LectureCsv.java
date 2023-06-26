@@ -35,7 +35,10 @@ public class LectureCsv {
             System.out.println(e.getMessage());
         }
 
+        lines.set(2260, lines.get(2260).replace("Confiture", ", Confiture"));
+        lines.set(2161, lines.get(2161).replace("Marmelade", ", Marmelade"));
         lines.set(3129, lines.get(3129).replace("issus de |’Agriculture", "issus de l’Agriculture"));
+        lines.set(5446, lines.get(5446).replace("sucre farine de blé oeuf sirop de glucose fructose graisses végétaleslait entier concentré sucré 8.5%humectantbeurre de cacao lait écrémé en poudre 3.2%pâte de cacao lactoserum en poudre de lait beurre concentré émulsifiantalcool sel poudre à leverarômes amidon de froment  peut contenir fruit à coque", "sucre, farine de blé, oeuf, sirop de glucose fructose, graisses végétales, lait entier concentré sucré 8.5%, humectant, beurre de cacao, lait écrémé en poudre 3.2%, pâte de cacao, lactoserum en poudre de lait, beurre concentré, émulsifiant, alcool, sel, poudre à lever, arômes, amidon de froment,  peut contenir fruit à coque"));
         lines.set(6375, lines.get(6375).replace(" stéaroyl-2—|acty|ate de sodium", "stéaroyl-2—lactylate de sodium"));
         lines.set(6610, lines.get(6610).replace(" conservateur |antioxydant", "conservateur antioxydant"));
         lines.set(8428, lines.get(8428).replace(" l,|% ", ""));
@@ -43,6 +46,7 @@ public class LectureCsv {
         lines.set(10070, lines.get(10070).replace("jaune d`oeuf", "jaune d'oeuf"));
         lines.set(10070, lines.get(10070).replace("de |’œuf", "de l'oeuf"));
         lines.set(11181, lines.get(11181).replace("moutarde à |’ancienne", "moutarde à l’ancienne"));
+        System.out.println("Après modif : "+lines.get(2260));
 /*        System.out.println("Après modif : "+lines.get(3129));
         System.out.println("Après modif : "+lines.get(6375));
         System.out.println("Après modif : "+lines.get(6610));

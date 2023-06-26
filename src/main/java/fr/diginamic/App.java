@@ -13,25 +13,9 @@ import java.util.Set;
 public class App {
     public static void main(String[] args) throws Exception {
 
+        long startTime = System.currentTimeMillis();
         List<String> allData = LectureCsv.lire("open-food-facts.csv");
         // System.out.println(produits);
-
-        /*
-        String ligne = produits.get(33);
-        String l = ligne.replaceAll("[^a-zA-Zàâäéèêëîïôöùûüç'\\|,:\\- 0-9.]", "");
-        String[] token = l.split("\\|", -1);
-        int i= 0;
-        for (String t:token){
-
-            if (t.isEmpty()){
-                t="filled";
-            }
-            i++;
-            System.out.println(i + " - " + t);
-        }
-        System.out.println(ligne.replaceAll("[^a-zA-Zàâäéèêëîïôöùûüç'\\|,:\\- 0-9.]", ""));
-        //OFFSignleProduct produit = new OFFSignleProduct();
-        */
 
         try(EntityManagerFactory emf = Persistence.createEntityManagerFactory("open_food_fact");
             EntityManager em = emf.createEntityManager()){
@@ -43,8 +27,14 @@ public class App {
             Set<Allergene> allAllergenes = new HashSet<>();
             Set<Ingredient> allIngredients = new HashSet<>();
             Set<Produit> allProduits = new HashSet<>();
-            int i = 1;
             int k =1;
+            int al = 1;
+            int ad = 1;
+            int pr = 1;
+            int m = 1;
+            int c= 1;
+            int i = 1;
+
 
 
 
@@ -54,6 +44,7 @@ public class App {
                 em.getTransaction().begin();
                 System.out.println("OPEN : " + k);
                 k++;
+
 
                 Produit produit = new Produit(
                         singleData.getOffProducts().getNom(),
@@ -81,22 +72,24 @@ public class App {
                         singleData.getOffProducts().getFer100g(),
                         singleData.getOffProducts().getBetaCarotene100g(),
                         singleData.getOffProducts().getPresenceHuilePalme());
-
-
-                //System.out.println("PRODUIT");
+                System.out.println(pr + " - " + produit.getNom());
 
                 Categorie categorie = null;
                 if(categories.contains(singleData.getOffCategorie())){
-                    //System.out.println("CAT : false");
-                    produit.setCategorie(singleData.getOffCategorie());
+                        for(Categorie cat : categories){
+                            if(cat.equals(singleData.getOffCategorie())){
+                                produit.setCategorie(cat);
+                                break;
+                            }
+                    }
                 } else {
-                    //System.out.println("CAT : true");
                     categorie = new Categorie(singleData.getOffCategorie().getLibelle());
                     categories.add(categorie);
                     produit.setCategorie(categorie);
                     em.persist(categorie);
+                    System.out.println(c + " - " + categorie.getLibelle());
+                    c++;
                 }
-
 
                 for (Additif a:singleData.getOffAdditifs()){
                     if(allAdditifs.contains(a)){
@@ -109,6 +102,8 @@ public class App {
                         produit.addAdditif(additif);
                         em.persist(additif);
                     }
+                    System.out.println(ad + " - " + a);
+                    ad++;
                 }
 
                 for (Allergene a:singleData.getOffAllergenes()) {
@@ -122,9 +117,13 @@ public class App {
                         produit.addAllergenes(allergene);
                         em.persist(allergene);
                     }
+                    System.out.println(al + " - " + a);
+                    al++;
                 }
 
-
+                if(k==2086){
+                    System.out.println(k + " - " + singleData.getOffIngredients());
+                }
                 for (Ingredient ing:singleData.getOffIngredients()){
                     if(allIngredients.contains(ing)){
                         produit.addIngredient(ing);
@@ -140,30 +139,36 @@ public class App {
 
 
                 if(marques.contains(singleData.getOffMarque())){
-                    //System.out.println("MARQUE : false");
-                    produit.setMarque(singleData.getOffMarque());
+                    for(Marque mar : marques){
+                        if(mar.equals(singleData.getOffMarque())){
+                            produit.setMarque(mar);
+                            break;
+                        }
+                    }
                 } else {
                     //System.out.println("MARQUE : true");
                     Marque marque = new Marque(singleData.getOffMarque().getLibelle());
                     marques.add(marque);
                     produit.setMarque(marque);
                     em.persist(marque);
+                    System.out.println(m + " - " + marque.getLibelle());
+                    m++;
                 }
 
                 allProduits.add(produit);
-                //em.persist(produit);
+                em.persist(produit);
+                System.out.println(pr + " - " + produit.getNom());
+                System.out.println(produit);
+                pr++;
 
                 System.out.println("COMMIT");
                 em.getTransaction().commit();
             }
-            int j = 1;
-            for (Produit p:allProduits){
-                //System.out.println(j + " - " + p.getNom());
-                j++;
-            }
-
-
-
         }
+
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
+
+        System.out.println("Execution time: " + executionTime/1000 + " seconds");
     }
 }
