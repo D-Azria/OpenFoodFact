@@ -26,12 +26,12 @@ public class App {
             Set<Ingredient> allIngredients = new HashSet<>();
             Set<Produit> allProduits = new HashSet<>();
 
-
+            int iterations = 0;
             em.getTransaction().begin();
-            int i = 1;
+            System.out.println("BEGIN");
+
             for (String oneData : allData) {
-
-
+                iterations++;
                 OFFSignleProduct singleData = ParseurLigne.parseLigne(oneData);
 
                 Produit produit = new Produit(
@@ -85,7 +85,8 @@ public class App {
                     } else {
                         Additif additif = new Additif(a.getCode(), a.getLibelle());
                         allAdditifs.add(additif);
-                        //produit.addAdditif(additif);
+                        produit.addAdditif(additif);
+                        //additif.addProduit(produit);
                         AdditifDao.insert(additif);
                     }
                 }
@@ -137,10 +138,17 @@ public class App {
 
                 allProduits.add(produit);
                 ProduitDao.insert(produit);
-                System.out.println(i + "-" + produit.getId() + " - " + produit.getNom());
-                i++;
+                //System.out.println(iterations + "-" + produit.getId() + " - " + produit.getNom());
+
+                if (iterations % 500 == 0) {
+                    em.getTransaction().commit();
+                    System.out.println("COMMIT - " + iterations);
+                    em.getTransaction().begin();
+                    System.out.println("BEGIN");
+                }
             }
             em.getTransaction().commit();
+            System.out.println("COMMIT");
         }
 
         long endTime = System.currentTimeMillis();
