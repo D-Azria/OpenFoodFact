@@ -1,18 +1,15 @@
 package fr.diginamic.parse;
 
 import fr.diginamic.App;
-import fr.diginamic.entites.OpenFoodFactProductData;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
+
 
 public class LectureCsv {
 
     public static List lire(String nomFichierCsv){
-        //OpenFoodFactProductData produitsData = new OpenFoodFactProductData();
 
         List<String> lines = new ArrayList<>();
         try{
@@ -35,6 +32,7 @@ public class LectureCsv {
             System.out.println(e.getMessage());
         }
 
+        lines.set(12, lines.get(12).replace(" Yf±jfiifi PD 2ClFl", ""));
         lines.set(2260, lines.get(2260).replace("Confiture", ", Confiture"));
         lines.set(2161, lines.get(2161).replace("Marmelade", ", Marmelade"));
         lines.set(3129, lines.get(3129).replace("issus de |’Agriculture", "issus de l’Agriculture"));

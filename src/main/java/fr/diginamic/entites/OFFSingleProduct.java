@@ -3,7 +3,7 @@ package fr.diginamic.entites;
 import fr.diginamic.utils.NutritionGradeFr;
 import java.util.Set;
 
-public class OFFSignleProduct {
+public class OFFSingleProduct {
     private Produit offProducts;
     private NutritionGradeFr offNutritionGradeFr;
     private Marque offMarque;
@@ -12,7 +12,7 @@ public class OFFSignleProduct {
     private Categorie offCategorie;
     private Set<Ingredient> offIngredients;
 
-    public OFFSignleProduct(Produit offProducts, NutritionGradeFr offNutritionGradeFr, Marque offMarque, Set<Additif> offAdditifs, Set<Allergene> offAllergenes, Categorie offCategorie, Set<Ingredient> offIngredients) {
+    public OFFSingleProduct(Produit offProducts, NutritionGradeFr offNutritionGradeFr, Marque offMarque, Set<Additif> offAdditifs, Set<Allergene> offAllergenes, Categorie offCategorie, Set<Ingredient> offIngredients) {
         this.offProducts = offProducts;
         this.offNutritionGradeFr = offNutritionGradeFr;
         this.offMarque = offMarque;
@@ -80,7 +80,7 @@ public class OFFSignleProduct {
 
     @Override
     public String toString() {
-        return "OFFSignleProduct{" +
+        return "OFFSingleProduct{" +
                 "offProducts=" + offProducts +
                 ", offNutritionGradeFr=" + offNutritionGradeFr +
                 ", offMarque=" + offMarque +

@@ -1,26 +1,20 @@
-package fr.diginamic;
+package fr.diginamic.dao;
 
-import fr.diginamic.dao.*;
 import fr.diginamic.entites.*;
-import fr.diginamic.ihm.StartInterface;
 import fr.diginamic.parse.LectureCsv;
 import fr.diginamic.parse.ParseurLigne;
 import fr.diginamic.utils.ConnectionEntityManager;
 import jakarta.persistence.EntityManager;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class App {
-    public static void main(String[] args) throws Exception {
+public class MainDao {
 
-        StartInterface.startInterface();
-
-
-
-
-        /*try (EntityManager em = ConnectionEntityManager.getEm()) {
+    public static void mainDao() throws Exception {
+        List<String> allData = LectureCsv.lire("open-food-facts.csv");
+        long startTime = System.currentTimeMillis();
+        try (EntityManager em = ConnectionEntityManager.getEm()) {
 
             Set<Marque> marques = new HashSet<>();
             Set<Categorie> categories = new HashSet<>();
@@ -29,15 +23,17 @@ public class App {
             Set<Ingredient> allIngredients = new HashSet<>();
             Set<Produit> allProduits = new HashSet<>();
 
-            int iterations = 0;
-            System.out.println("START");
+            //int iterations = 0;
+/*            System.out.println("START");
             em.getTransaction().begin();
-            System.out.println("BEGIN Transaction - INITIAL");
+            System.out.println("BEGIN Transaction - INITIAL");*/
 
             for (String oneData : allData) {
-                iterations++;
-                OFFSingleProduct singleData = ParseurLigne.parseLigne(oneData);
 
+                //iterations++;
+                OFFSingleProduct singleData = ParseurLigne.parseLigne(oneData);
+                em.getTransaction().begin();
+                System.out.println("BEGIN");
                 Produit produit = new Produit(
                         singleData.getOffProducts().getNom(),
                         singleData.getOffNutritionGradeFr(),
@@ -119,7 +115,7 @@ public class App {
                         produit.addIngredient(ingredient);
                         //ingredient.addProduit(produit);
                         //em.persist(ingredient);
-                        IIngredientDao.insert(ingredient);
+                        IngredientDao.insert(ingredient);
                     }
                 }
 
@@ -144,15 +140,20 @@ public class App {
                 ProduitDao.insert(produit);
                 //System.out.println(iterations + "-" + produit.getId() + " - " + produit.getNom());
 
-                if (iterations % 500 == 0) {
+/*                if (iterations % 500 == 0) {
                     em.getTransaction().commit();
                     System.out.println("COMMIT - " + iterations);
                     em.getTransaction().begin();
                     System.out.println("BEGIN Transaction");
-                }
+                }*/
+                em.getTransaction().commit();
+                System.out.println("COMMIT");
             }
-            em.getTransaction().commit();
-            System.out.println("COMMIT - FINAL");
-        }*/
+/*            em.getTransaction().commit();
+            System.out.println("COMMIT - FINAL");*/
+        }
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
+        System.out.println("Execution time: " + executionTime / 1000 + " seconds");
     }
 }

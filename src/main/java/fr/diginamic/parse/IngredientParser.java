@@ -2,7 +2,7 @@ package fr.diginamic.parse;
 
 import fr.diginamic.entites.Allergene;
 import fr.diginamic.entites.Ingredient;
-import fr.diginamic.utils.RemoveSpaceFirst;
+import fr.diginamic.utils.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,43 +12,26 @@ import static fr.diginamic.utils.OnlyFirstLetterToUpperCase.onlyFirstLetterToUpp
 
 public class IngredientParser {
 
-    public static Set<Ingredient> parseIngredient(String ingredients){
+    public static Set<Ingredient> parseIngredient(String ingredients) {
         Set<Ingredient> ingredientSet = new HashSet<>();
-        StringTokenizer tokenizer = getStringTokenizer(ingredients);
-        int i = 1;
-        while (tokenizer.hasMoreTokens()) {
-            String part = tokenizer.nextToken().trim();
-            String cleanedSecondPass = part.replace("-", " ");
-            String cleanedThirdPass = RemoveSpaceFirst.removeSpaceFirst(cleanedSecondPass);
-            String cleanedFinalPass = onlyFirstLetterToUpperCase(cleanedThirdPass);
-            Ingredient ing = new Ingredient(cleanedFinalPass);
-            ingredientSet.add(ing);
-            //System.out.println(i + " - " + ing);
-            i++;
 
+        String firstPass = ingredients.replace("_", "").replaceAll("()", "").replace(",", ";").replaceAll("\\d+\\.\\d+(?=\\s*%)", "").replaceAll("\\d+(?=\\s*%)", "").replace("%", "").replace(".", ";").replace(" - ", ";").replace(" -", ";").replace("- ", ";").replace("  ", " ").replace("(", "").replace(")", "").replace("[", "").replace("]", "");
+
+        String[] token = firstPass.split(";");
+        for (String t : token) {
+            if (!t.isEmpty()) {
+                String t1 = RemoveAfterAsterisk.removeAsterisk(t);
+                String t2 = OnlyFirstLetterToUpperCase.onlyFirstLetterToUpperCase(t1).replace("*", "").replace(",", "").replace("  ", " ");
+                String t3 = RemoveSpaceFirst.removeSpaceFirst(t2);
+                String t4 = RemoveDoubleDots.removeDoubleDots(t3);
+                String t5 = RemoveLastSpaces.removeLastSpaces(t4);
+                if (!t5.isEmpty()) {
+                    Ingredient ing = new Ingredient(t5);
+                    ingredientSet.add(ing);
+                    //System.out.println(ing);
+                }
+            }
         }
-       /* String [] token = string.split("\\s*[;,]\\s*");
-        int i = 1;
-        for (String t:token){
-
-            String cleanedFirstPass = t.replace("*", "");
-            String cleanedSecondPass = cleanedFirstPass.replace("-", " ");
-            String cleanedThirdPass = RemoveSpaceFirst.removeSpaceFirst(cleanedSecondPass);
-            String cleanedFinalPass = onlyFirstLetterToUpperCase(cleanedThirdPass);
-
-            Ingredient ing = new Ingredient(cleanedFinalPass);
-            ingredientSet.add(ing);
-            //System.out.println(i + " - " + ing);
-            i++;
-        }*/
-        return ingredientSet;
-    }
-
-    private static StringTokenizer getStringTokenizer(String ingredients) {
-        String stringFirstPass = ingredients.replaceAll("(?<![a-zA-Z])\\d+(\\.\\d+)?%?|(?<![a-zA-Z])\\d{2,3}(?![\\d.])", "").replaceAll("()","").replace("*", "").replace("%", "").replace("_","").replaceAll("\\(", "").replaceAll("\\)", "").replaceAll("\\[","");
-        String stringSecondPass = stringFirstPass.replaceAll("  ", " ");
-        String stringToTokenize = stringSecondPass.replace(",",";").replace("-", ";").replace(".",";").replaceAll("\\s*g$","");
-        StringTokenizer tokenizer = new StringTokenizer(stringToTokenize, ";");
-        return tokenizer;
+    return ingredientSet;
     }
 }

@@ -1,8 +1,6 @@
 package fr.diginamic.dao;
 
-import fr.diginamic.entites.OFFSignleProduct;
 import fr.diginamic.entites.Produit;
-import fr.diginamic.parse.ParseurLigne;
 import fr.diginamic.utils.ConnectionEntityManager;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -24,13 +22,12 @@ public class ProduitDao implements IProduitDao{
         }
 
 
-    @Override
-    public Set<Produit> extraire() {
+
+    public static Set<Produit> extraire() {
         Set<Produit> produits = new HashSet<>();
         EntityManager em = ConnectionEntityManager.getEm();
         TypedQuery<Produit> p = em.createQuery("select p from Produit p", Produit.class);
         produits = (Set) p.getResultList();
-        em.close();
         ConnectionEntityManager.closeEMF();
         return produits;
     }

@@ -55,7 +55,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient : " + libelle ;
+        return libelle ;
     }
     @Override
     public boolean equals(Object o) {
