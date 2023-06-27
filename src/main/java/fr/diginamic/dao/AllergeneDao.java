@@ -3,6 +3,7 @@ package fr.diginamic.dao;
 
 import fr.diginamic.entites.Additif;
 import fr.diginamic.entites.Allergene;
+import fr.diginamic.entites.Produit;
 import fr.diginamic.utils.ConnectionEntityManager;
 import jakarta.persistence.EntityManager;
 
@@ -11,12 +12,14 @@ import java.util.Set;
 
 public class AllergeneDao implements IAllergeneDao{
 
-    static Set<Allergene> allAllergenes = new HashSet<>();
-    public static void insert(Allergene allergene) throws Exception{
+    private static Set<Allergene> allAllergenes = new HashSet<>();
+    public static void insert(Allergene allergene, Produit produit) throws Exception{
         EntityManager em = ConnectionEntityManager.getEm();
-        //em.getTransaction().begin();
-        allAllergenes.add(allergene);
-        em.persist(allergene);
+        if(!allAllergenes.contains(allergene)){
+            allAllergenes.add(allergene);
+            produit.addAllergenes(allergene);
+            em.persist(allergene);
+        }
         //em.getTransaction().commit();
     }
 
@@ -25,5 +28,13 @@ public class AllergeneDao implements IAllergeneDao{
         Set<Allergene> allergenes = new HashSet<>();
 
         return null;
+    }
+
+    public static Set<Allergene> getAllAllergenes() {
+        return allAllergenes;
+    }
+
+    public static void setAllAllergenes(Set<Allergene> allAllergenes) {
+        AllergeneDao.allAllergenes = allAllergenes;
     }
 }

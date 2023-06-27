@@ -72,11 +72,11 @@ public class Allergene {
             return false;
         }
         Allergene allergene = (Allergene) o;
-        return Objects.equals(libelle, allergene.libelle);
+        return libelle.equals(allergene.libelle);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(libelle);
+        return libelle.hashCode();
     }
 }

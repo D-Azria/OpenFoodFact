@@ -2,6 +2,7 @@ package fr.diginamic.dao;
 
 import fr.diginamic.entites.Categorie;
 import fr.diginamic.entites.Ingredient;
+import fr.diginamic.entites.Produit;
 import fr.diginamic.utils.ConnectionEntityManager;
 import jakarta.persistence.EntityManager;
 
@@ -11,13 +12,13 @@ import java.util.Set;
 public class IngredientDao implements IIngredientDao{
 
     static Set<Ingredient> allIngredients = new HashSet<>();
-    public static void insert(Ingredient ingredient) throws Exception{
+    public static void insert(Ingredient ingredient, Produit produit) throws Exception{
         EntityManager em = ConnectionEntityManager.getEm();
-        //em.getTransaction().begin();
-        allIngredients.add(ingredient);
-        em.persist(ingredient);
-
-        //em.getTransaction().commit();
+        if (!allIngredients.contains(ingredient)) {
+            allIngredients.add(ingredient);
+            produit.addIngredient(ingredient);
+            em.persist(ingredient);
+        }
     }
 
     public Set<Ingredient> extraire() throws Exception{

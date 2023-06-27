@@ -17,7 +17,7 @@ public class ProduitDao implements IProduitDao{
             //em.getTransaction().begin();
             allProduits.add(produit);
             em.persist(produit);
-            produitId = produit.getId();
+            //produitId = produit.getId();
             //em.getTransaction().commit();
         }
 
@@ -34,5 +34,14 @@ public class ProduitDao implements IProduitDao{
 
     public static int getProduitId() {
         return produitId;
+    }
+
+
+    public static Set<Produit> getAllProduits() {
+        return allProduits;
+    }
+
+    public static void setAllProduits(Set<Produit> allProduits) {
+        ProduitDao.allProduits = allProduits;
     }
 }

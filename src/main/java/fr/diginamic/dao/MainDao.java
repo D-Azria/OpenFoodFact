@@ -23,17 +23,17 @@ public class MainDao {
             Set<Ingredient> allIngredients = new HashSet<>();
             Set<Produit> allProduits = new HashSet<>();
 
-            //int iterations = 0;
-/*            System.out.println("START");
+            int iterations = 0;
+            System.out.println("START");
             em.getTransaction().begin();
-            System.out.println("BEGIN Transaction - INITIAL");*/
+            System.out.println("BEGIN Transaction - INITIAL");
 
             for (String oneData : allData) {
 
-                //iterations++;
+                iterations++;
                 OFFSingleProduct singleData = ParseurLigne.parseLigne(oneData);
-                em.getTransaction().begin();
-                System.out.println("BEGIN");
+                //em.getTransaction().begin();
+                //System.out.println("BEGIN");
                 Produit produit = new Produit(
                         singleData.getOffProducts().getNom(),
                         singleData.getOffNutritionGradeFr(),
@@ -66,7 +66,6 @@ public class MainDao {
                     for (Categorie cat : categories) {
                         if (cat.equals(singleData.getOffCategorie())) {
                             produit.setCategorie(cat);
-                            //cat.addProduit(produit);
                             break;
                         }
                     }
@@ -74,20 +73,15 @@ public class MainDao {
                     categorie = new Categorie(singleData.getOffCategorie().getLibelle());
                     categories.add(categorie);
                     produit.setCategorie(categorie);
-                    //categorie.addProduit(produit);
                     CategorieDao.insert(categorie);
                 }
+
 
                 for (Additif a : singleData.getOffAdditifs()) {
                     if (allAdditifs.contains(a)) {
                         produit.addAdditif(a);
-                        //a.addProduit(produit);
                     } else {
-                        Additif additif = new Additif(a.getCode(), a.getLibelle());
-                        allAdditifs.add(additif);
-                        produit.addAdditif(additif);
-                        //additif.addProduit(produit);
-                        AdditifDao.insert(additif);
+                        AdditifDao.insert(a, produit);
                     }
                 }
 
@@ -95,27 +89,16 @@ public class MainDao {
                 for (Allergene a : singleData.getOffAllergenes()) {
                     if (allAllergenes.contains(a)) {
                         produit.addAllergenes(a);
-                        //a.addProduit(produit);
                     } else {
-                        Allergene allergene = new Allergene(a.getLibelle());
-                        allAllergenes.add(allergene);
-                        produit.addAllergenes(allergene);
-                        //allergene.addProduit(produit);
-                        AllergeneDao.insert(allergene);
+                        AllergeneDao.insert(a, produit);
                     }
                 }
 
                 for (Ingredient ing : singleData.getOffIngredients()) {
                     if (allIngredients.contains(ing)) {
                         produit.addIngredient(ing);
-                        //ing.addProduit(produit);
                     } else {
-                        Ingredient ingredient = new Ingredient(ing.getLibelle());
-                        allIngredients.add(ingredient);
-                        produit.addIngredient(ingredient);
-                        //ingredient.addProduit(produit);
-                        //em.persist(ingredient);
-                        IngredientDao.insert(ingredient);
+                        IngredientDao.insert(ing, produit);
                     }
                 }
 
@@ -124,7 +107,6 @@ public class MainDao {
                     for (Marque mar : marques) {
                         if (mar.equals(singleData.getOffMarque())) {
                             produit.setMarque(mar);
-                            //mar.addProduit(produit);
                             break;
                         }
                     }
@@ -132,25 +114,23 @@ public class MainDao {
                     Marque marque = new Marque(singleData.getOffMarque().getLibelle());
                     marques.add(marque);
                     produit.setMarque(marque);
-                    //marque.addProduit(produit);
                     MarqueDao.insert(marque);
                 }
 
                 allProduits.add(produit);
                 ProduitDao.insert(produit);
-                //System.out.println(iterations + "-" + produit.getId() + " - " + produit.getNom());
 
-/*                if (iterations % 500 == 0) {
+                if (iterations % 500 == 0) {
                     em.getTransaction().commit();
                     System.out.println("COMMIT - " + iterations);
                     em.getTransaction().begin();
                     System.out.println("BEGIN Transaction");
-                }*/
-                em.getTransaction().commit();
-                System.out.println("COMMIT");
+                }
+                //em.getTransaction().commit();
+                //System.out.println("COMMIT");
             }
-/*            em.getTransaction().commit();
-            System.out.println("COMMIT - FINAL");*/
+            em.getTransaction().commit();
+            System.out.println("COMMIT - FINAL");
         }
         long endTime = System.currentTimeMillis();
         long executionTime = endTime - startTime;

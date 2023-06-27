@@ -8,14 +8,16 @@ import jakarta.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AdditifDao implements IAdditifDao{
+public class AdditifDao implements IAdditifDao {
     static Set<Additif> allAdditifs = new HashSet<>();
-    public static void insert(Additif additif) throws Exception{
+
+    public static void insert(Additif additif, Produit produit) throws Exception {
         EntityManager em = ConnectionEntityManager.getEm();
-        //em.getTransaction().begin();
-        allAdditifs.add(additif);
-        em.persist(additif);
-        //em.getTransaction().commit();
+        if (!allAdditifs.contains(additif)) {
+            allAdditifs.add(additif);
+            produit.addAdditif(additif);
+            em.persist(additif);
+        }
     }
 
     @Override

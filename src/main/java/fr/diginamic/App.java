@@ -14,8 +14,8 @@ import java.util.Set;
 
 public class App {
     public static void main(String[] args) throws Exception {
-
-        StartInterface.startInterface();
+        MainDao.mainDao();
+        //StartInterface.startInterface();
 
 
 
