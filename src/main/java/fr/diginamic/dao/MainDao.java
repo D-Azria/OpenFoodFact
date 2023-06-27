@@ -5,6 +5,7 @@ import fr.diginamic.parse.LectureCsv;
 import fr.diginamic.parse.ParseurLigne;
 import fr.diginamic.utils.ConnectionEntityManager;
 import jakarta.persistence.EntityManager;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,11 +17,6 @@ public class MainDao {
         long startTime = System.currentTimeMillis();
         try (EntityManager em = ConnectionEntityManager.getEm()) {
 
-            Set<Marque> marques = new HashSet<>();
-            Set<Categorie> categories = new HashSet<>();
-            Set<Additif> allAdditifs = new HashSet<>();
-            Set<Allergene> allAllergenes = new HashSet<>();
-            Set<Ingredient> allIngredients = new HashSet<>();
             Set<Produit> allProduits = new HashSet<>();
 
             int iterations = 0;
@@ -32,8 +28,7 @@ public class MainDao {
 
                 iterations++;
                 OFFSingleProduct singleData = ParseurLigne.parseLigne(oneData);
-                //em.getTransaction().begin();
-                //System.out.println("BEGIN");
+
                 Produit produit = new Produit(
                         singleData.getOffProducts().getNom(),
                         singleData.getOffNutritionGradeFr(),
@@ -61,73 +56,32 @@ public class MainDao {
                         singleData.getOffProducts().getBetaCarotene100g(),
                         singleData.getOffProducts().getPresenceHuilePalme());
 
-                Categorie categorie = null;
-                if (categories.contains(singleData.getOffCategorie())) {
-                    for (Categorie cat : categories) {
-                        if (cat.equals(singleData.getOffCategorie())) {
-                            produit.setCategorie(cat);
-                            break;
-                        }
-                    }
-                } else {
-                    categorie = new Categorie(singleData.getOffCategorie().getLibelle());
-                    categories.add(categorie);
-                    produit.setCategorie(categorie);
-                    CategorieDao.insert(categorie);
-                }
-
 
                 for (Additif a : singleData.getOffAdditifs()) {
-                    if (allAdditifs.contains(a)) {
-                        produit.addAdditif(a);
-                    } else {
-                        AdditifDao.insert(a, produit);
-                    }
+                    AdditifDao.insert(a, produit);
                 }
 
-
                 for (Allergene a : singleData.getOffAllergenes()) {
-                    if (allAllergenes.contains(a)) {
-                        produit.addAllergenes(a);
-                    } else {
-                        AllergeneDao.insert(a, produit);
-                    }
+                    AllergeneDao.insert(a, produit);
                 }
 
                 for (Ingredient ing : singleData.getOffIngredients()) {
-                    if (allIngredients.contains(ing)) {
-                        produit.addIngredient(ing);
-                    } else {
-                        IngredientDao.insert(ing, produit);
-                    }
+                    IngredientDao.insert(ing, produit);
                 }
 
-
-                if (marques.contains(singleData.getOffMarque())) {
-                    for (Marque mar : marques) {
-                        if (mar.equals(singleData.getOffMarque())) {
-                            produit.setMarque(mar);
-                            break;
-                        }
-                    }
-                } else {
-                    Marque marque = new Marque(singleData.getOffMarque().getLibelle());
-                    marques.add(marque);
-                    produit.setMarque(marque);
-                    MarqueDao.insert(marque);
-                }
+                CategorieDao.insert(singleData.getOffCategorie(), produit);
+                MarqueDao.insert(singleData.getOffMarque(), produit);
 
                 allProduits.add(produit);
                 ProduitDao.insert(produit);
 
                 if (iterations % 500 == 0) {
-                    em.getTransaction().commit();
+                    System.out.println(iterations + " - itérations");
+/*                    em.getTransaction().commit();
                     System.out.println("COMMIT - " + iterations);
                     em.getTransaction().begin();
-                    System.out.println("BEGIN Transaction");
+                    System.out.println("BEGIN Transaction");*/
                 }
-                //em.getTransaction().commit();
-                //System.out.println("COMMIT");
             }
             em.getTransaction().commit();
             System.out.println("COMMIT - FINAL");

@@ -10,17 +10,26 @@ import jakarta.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MarqueDao implements IMarqueDao{
+public class MarqueDao implements IMarqueDao {
     static Set<Marque> marques = new HashSet<>();
 
-    public static void insert(Marque marque) throws Exception{
+    public static void insert(Marque marque, Produit produit) throws Exception {
         EntityManager em = ConnectionEntityManager.getEm();
-        //em.getTransaction().begin();
-        marques.add(marque);
-        em.persist(marque);
 
-        //em.getTransaction().commit();
+        if (marques.contains(marque)) {
+            for (Marque mar : marques) {
+                if (mar.equals(marque)) {
+                    produit.setMarque(mar);
+                    break;
+                }
+            }
+        } else {
+            marques.add(marque);
+            produit.setMarque(marque);
+            em.persist(marque);
+        }
     }
+
     @Override
     public Set<Marque> extraire() throws Exception {
         Set<Marque> marques = new HashSet<>();

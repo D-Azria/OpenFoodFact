@@ -14,9 +14,9 @@ public class IngredientDao implements IIngredientDao{
     static Set<Ingredient> allIngredients = new HashSet<>();
     public static void insert(Ingredient ingredient, Produit produit) throws Exception{
         EntityManager em = ConnectionEntityManager.getEm();
+        produit.addIngredient(ingredient);
         if (!allIngredients.contains(ingredient)) {
             allIngredients.add(ingredient);
-            produit.addIngredient(ingredient);
             em.persist(ingredient);
         }
     }

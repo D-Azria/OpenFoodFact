@@ -9,16 +9,12 @@ import java.util.Set;
 
 public class ProduitDao implements IProduitDao{
 
-    private static int produitId;
     private static Set<Produit> allProduits = new HashSet<>();
 
     public static void insert(Produit produit) throws Exception{
             EntityManager em = ConnectionEntityManager.getEm();
-            //em.getTransaction().begin();
             allProduits.add(produit);
             em.persist(produit);
-            //produitId = produit.getId();
-            //em.getTransaction().commit();
         }
 
 
@@ -32,16 +28,15 @@ public class ProduitDao implements IProduitDao{
         return produits;
     }
 
-    public static int getProduitId() {
-        return produitId;
-    }
-
-
     public static Set<Produit> getAllProduits() {
         return allProduits;
     }
 
     public static void setAllProduits(Set<Produit> allProduits) {
         ProduitDao.allProduits = allProduits;
+    }
+
+    public static void addProduit (Produit produit){
+        allProduits.add(produit);
     }
 }

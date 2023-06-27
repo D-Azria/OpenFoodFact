@@ -13,9 +13,9 @@ public class AdditifDao implements IAdditifDao {
 
     public static void insert(Additif additif, Produit produit) throws Exception {
         EntityManager em = ConnectionEntityManager.getEm();
+        produit.addAdditif(additif);
         if (!allAdditifs.contains(additif)) {
             allAdditifs.add(additif);
-            produit.addAdditif(additif);
             em.persist(additif);
         }
     }
