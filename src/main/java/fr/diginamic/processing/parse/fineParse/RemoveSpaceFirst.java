@@ -1,4 +1,4 @@
-package fr.diginamic.utils;
+package fr.diginamic.processing.parse.fineParse;
 
 public class RemoveSpaceFirst {
     public static String removeSpaceFirst(String str) {

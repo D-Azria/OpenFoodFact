@@ -1,6 +1,7 @@
 package fr.diginamic.dao;
 
 import fr.diginamic.entites.Additif;
+import fr.diginamic.entites.Allergene;
 import fr.diginamic.entites.Produit;
 import fr.diginamic.utils.ConnectionEntityManager;
 import jakarta.persistence.EntityManager;
@@ -13,9 +14,17 @@ public class AdditifDao implements IAdditifDao {
 
     public static void insert(Additif additif, Produit produit) throws Exception {
         EntityManager em = ConnectionEntityManager.getEm();
-        produit.addAdditif(additif);
-        if (!allAdditifs.contains(additif)) {
+
+        if (allAdditifs.contains(additif)) {
+            for (Additif a : allAdditifs) {
+                if (a.equals(additif)) {
+                    produit.addAdditif(a);
+                    break;
+                }
+            }
+        } else {
             allAdditifs.add(additif);
+            produit.addAdditif(additif);
             em.persist(additif);
         }
     }

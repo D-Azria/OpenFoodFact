@@ -1,8 +1,8 @@
-package fr.diginamic.parse;
+package fr.diginamic.processing.parse;
 
 
 import fr.diginamic.entites.Categorie;
-import static fr.diginamic.utils.OnlyFirstLetterToUpperCase.*;
+import static fr.diginamic.processing.parse.fineParse.OnlyFirstLetterToUpperCase.*;
 
 public class CategorieParser {
     public static Categorie parseCategorie(String categorieToParse){

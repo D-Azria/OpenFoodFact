@@ -3,6 +3,7 @@ package fr.diginamic.dao;
 
 import fr.diginamic.entites.Additif;
 import fr.diginamic.entites.Allergene;
+import fr.diginamic.entites.Categorie;
 import fr.diginamic.entites.Produit;
 import fr.diginamic.utils.ConnectionEntityManager;
 import jakarta.persistence.EntityManager;
@@ -15,18 +16,24 @@ public class AllergeneDao implements IAllergeneDao{
     private static Set<Allergene> allAllergenes = new HashSet<>();
     public static void insert(Allergene allergene, Produit produit) throws Exception{
         EntityManager em = ConnectionEntityManager.getEm();
-        produit.addAllergenes(allergene);
-        if(!allAllergenes.contains(allergene)){
+
+        if (allAllergenes.contains(allergene)) {
+            for (Allergene a : allAllergenes) {
+                if (a.equals(allergene)) {
+                    produit.addAllergenes(a);
+                    break;
+                }
+            }
+        } else {
             allAllergenes.add(allergene);
+            produit.addAllergenes(allergene);
             em.persist(allergene);
         }
-        //em.getTransaction().commit();
     }
 
     @Override
     public Set<Allergene> extraire() throws Exception {
         Set<Allergene> allergenes = new HashSet<>();
-
         return null;
     }
 

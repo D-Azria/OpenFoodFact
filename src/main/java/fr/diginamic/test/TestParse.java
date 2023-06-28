@@ -1,7 +1,8 @@
-package fr.diginamic.parse;
+package fr.diginamic.test;
 
-import fr.diginamic.dao.*;
 import fr.diginamic.entites.*;
+import fr.diginamic.processing.LectureCsv;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

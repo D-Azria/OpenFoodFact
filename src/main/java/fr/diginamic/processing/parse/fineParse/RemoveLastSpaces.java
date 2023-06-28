@@ -1,4 +1,4 @@
-package fr.diginamic.utils;
+package fr.diginamic.processing.parse.fineParse;
 
 public class RemoveLastSpaces {
     public static String removeLastSpaces(String str) {

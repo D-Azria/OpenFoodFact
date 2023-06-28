@@ -1,4 +1,4 @@
-package fr.diginamic.utils;
+package fr.diginamic.processing.parse.fineParse;
 
 public class RemoveDoubleDots {
     public static String removeDoubleDots(String str) {

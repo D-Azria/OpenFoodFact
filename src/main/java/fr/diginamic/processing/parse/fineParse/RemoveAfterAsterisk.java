@@ -1,4 +1,4 @@
-package fr.diginamic.utils;
+package fr.diginamic.processing.parse.fineParse;
 
 public class RemoveAfterAsterisk {
     public static String removeAsterisk(String input) {

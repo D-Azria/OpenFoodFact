@@ -1,4 +1,4 @@
-package fr.diginamic.parse;
+package fr.diginamic.processing;
 
 import fr.diginamic.App;
 import java.io.*;

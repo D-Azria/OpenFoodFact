@@ -1,12 +1,17 @@
-package fr.diginamic.parse;
+package fr.diginamic.test;
 
 import fr.diginamic.entites.*;
+import fr.diginamic.processing.parse.AdditifParser;
+import fr.diginamic.processing.parse.AllergeneParser;
+import fr.diginamic.processing.parse.CategorieParser;
+import fr.diginamic.processing.parse.MarqueParser;
 import fr.diginamic.utils.NutritionGradeFr;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ParseurLigne {
+public class TestParseurLigne {
+
     public static OFFSingleProduct parseLigne(String l){
         String lineToSplit = l.replaceAll("[^a-zA-ZÉàâäéèêëîïôöùûüçŒœ'\\|\\- 0-9.,;:_*()%\\[\\]]", "");
         //String lineToSplit = lineFirstParse.replaceAll("", "");
@@ -70,7 +75,7 @@ public class ParseurLigne {
         //Set<Additif> additifsSet = new HashSet<>();
         Set<Ingredient> ingredientSet = new HashSet<>();
         if(ingredientSet.isEmpty()){
-            ingredientSet = IngredientParser.parseIngredient(ingredients);
+            ingredientSet = TestIngredientParsing.parseIngredient(ingredients);
         }
 
         OFFSingleProduct newProduct = new OFFSingleProduct(produit, thisGrade, thisMarque, additifsSet, allergenesSet, thisCategorie, ingredientSet);
@@ -82,7 +87,7 @@ public class ParseurLigne {
         if (!token.isEmpty()) {
             return Double.valueOf(token);
         } else {
-          return 0.0;
+            return 0.0;
         }
     }
 

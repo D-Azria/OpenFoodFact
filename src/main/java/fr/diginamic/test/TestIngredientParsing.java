@@ -1,13 +1,10 @@
-package fr.diginamic.parse;
+package fr.diginamic.test;
 
 import fr.diginamic.entites.Ingredient;
-import fr.diginamic.utils.*;
+import fr.diginamic.processing.parse.fineParse.*;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.StringTokenizer;
-
-import static fr.diginamic.utils.OnlyFirstLetterToUpperCase.onlyFirstLetterToUpperCase;
 
 public class TestIngredientParsing {
     public static Set<Ingredient> parseIngredient(String ingredients) {

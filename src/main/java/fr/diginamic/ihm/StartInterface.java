@@ -1,6 +1,6 @@
 package fr.diginamic.ihm;
 
-import fr.diginamic.dao.MainDao;
+import fr.diginamic.processing.MainProcessing;
 import fr.diginamic.dao.recherches.RechercheProduitsMarque;
 import java.util.Scanner;
 
@@ -17,7 +17,7 @@ public class StartInterface {
                 choix = Integer.parseInt(choixMenu);
                 switch (choix) {
                     case 1:
-                        MainDao.mainDao();
+                        MainProcessing.mainProcessing();
                         break;
                     case 2:
                         System.out.print("Choix du nombre de produit à afficher : ");

@@ -1,7 +1,6 @@
-package fr.diginamic.parse;
+package fr.diginamic.processing.parse;
 
 import fr.diginamic.entites.Additif;
-import fr.diginamic.entites.Allergene;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package fr.diginamic.parse;
+package fr.diginamic.processing.parse;
 
 import fr.diginamic.entites.Additif;
 

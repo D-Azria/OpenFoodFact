@@ -1,13 +1,12 @@
-package fr.diginamic.parse;
+package fr.diginamic.processing.parse;
 
 import fr.diginamic.entites.Allergene;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import static fr.diginamic.utils.OnlyFirstLetterToUpperCase.onlyFirstLetterToUpperCase;
-import static fr.diginamic.utils.RemoveSpaceFirst.removeSpaceFirst;
+import static fr.diginamic.processing.parse.fineParse.OnlyFirstLetterToUpperCase.onlyFirstLetterToUpperCase;
+import static fr.diginamic.processing.parse.fineParse.RemoveSpaceFirst.removeSpaceFirst;
 
 public class AllergeneParser {
 
