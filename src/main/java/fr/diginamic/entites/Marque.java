@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/** Classe permettant de définir l'entité marque
+ *
+ */
 @Entity
 @Table(name="MARQUE")
 @Cacheable
@@ -57,6 +60,11 @@ public class Marque {
         this.produits = produits;
     }
 
+    /**
+     * Ajoute un produit à la liste des produits de la marque.
+     *
+     * @param produit le produit à ajouter
+     */
     public void addProduit(Produit produit) {
         produits.add(produit);
     }
@@ -66,6 +74,13 @@ public class Marque {
         return "Marque : " + id + " - " + libelle;
     }
 
+    /**
+     * Indique si l'objet spécifié est égal à cette marque.
+     * Deux marques sont considérées égales si elles ont le même libellé.
+     *
+     * @param o l'objet à comparer avec cette marque
+     * @return true si l'objet spécifié est égal à cette marque, false sinon
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -78,6 +93,12 @@ public class Marque {
         return Objects.equals(libelle, marque.libelle);
     }
 
+    /**
+     * Retourne un code de hachage pour cette marque.
+     * Le code de hachage est basé sur le libellé de la marque.
+     *
+     * @return le code de hachage de la marque
+     */
     @Override
     public int hashCode() {
         return Objects.hash(libelle);

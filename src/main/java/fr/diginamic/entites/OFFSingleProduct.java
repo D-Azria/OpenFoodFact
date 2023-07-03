@@ -3,6 +3,9 @@ package fr.diginamic.entites;
 import fr.diginamic.utils.NutritionGradeFr;
 import java.util.Set;
 
+/** Classe permettant la création d'une entité intermédiaire OFF rassemblant les 6 entités obtenues lors du parse d'une ligne
+ *
+ */
 public class OFFSingleProduct {
     private Produit offProducts;
     private NutritionGradeFr offNutritionGradeFr;

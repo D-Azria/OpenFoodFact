@@ -15,6 +15,9 @@ public class Categorie {
     private Integer id;
     private String libelle;
 
+    /** Classe permettant de définir l'entité catégorie
+     *
+     */
     @OneToMany(mappedBy = "categorie",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
@@ -50,6 +53,12 @@ public class Categorie {
     public void setProduits(Set<Produit> produits) {
         this.produits = produits;
     }
+
+    /**
+     * Ajoute un produit à la liste des produits de la catégorie.
+     *
+     * @param produit le produit à ajouter
+     */
     public void addProduit(Produit produit) {
         produits.add(produit);
     }
@@ -63,6 +72,13 @@ public class Categorie {
                 '}';
     }
 
+    /**
+     * Indique si l'objet spécifié est égal à cette catégorie.
+     * Deux catégories sont considérées égales si elles ont le même libellé.
+     *
+     * @param o l'objet à comparer avec cette catégorie
+     * @return true si l'objet spécifié est égal à cette catégorie, false sinon
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -75,6 +91,12 @@ public class Categorie {
         return Objects.equals(libelle, categorie.libelle);
     }
 
+    /**
+     * Retourne un code de hachage pour cette catégorie.
+     * Le code de hachage est basé sur le libellé de la catégorie.
+     *
+     * @return le code de hachage de la catégorie
+     */
     @Override
     public int hashCode() {
         return Objects.hash(libelle);

@@ -1,11 +1,21 @@
 package fr.diginamic.ihm;
 
 import fr.diginamic.processing.MainProcessing;
-import fr.diginamic.dao.recherches.RechercheProduitsMarque;
 import java.util.Scanner;
 
+/** Classe qui permet d'afficher l'interface de l'application
+ *
+ * Cette classe représente l'interface de démarrage du programme.
+ * Elle permet à l'utilisateur d'interagir avec le programme via la console
+ * et de choisir différentes fonctionnalités.
+ *
+ @author David Azria
+ */
 public class StartInterface {
 
+    /**
+     * Méthode principale pour démarrer l'interface du programme.
+     */
     public static void startInterface() {
         Scanner scanner = new Scanner(System.in);
 
@@ -25,7 +35,6 @@ public class StartInterface {
                         System.out.print("Choix de la marque : ");
                         String choixMarque = scanner.nextLine();
 
-                        RechercheProduitsMarque.rechercheProduitsMarque(choixNombreProduit,choixMarque);
                         break;
                     case 3:
 
@@ -51,9 +60,12 @@ public class StartInterface {
         scanner.close();
     }
 
+    /**
+     * Affiche le menu principal du programme dans la console.
+     */
     private static void afficherMenu() {
         System.out.println("***** Exploitation données OpenFoodFacts *****");
-        System.out.println("1. Extraire les données (2-40 min)");
+        System.out.println("1. Extraire les données");
         System.out.println("2. Rechercher les N meilleurs produits d'une Marque");
         System.out.println("3. Rechercher les N meilleurs produits d'une Catégorie");
         System.out.println("4. Rechercher les N meilleurs produits par Marque et par Catégorie");

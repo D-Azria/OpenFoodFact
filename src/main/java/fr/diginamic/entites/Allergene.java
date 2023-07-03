@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/** Classe permettant de définir l'entité allergene
+ *
+ */
 @Entity
 @Table(name="ALLERGENE")
 @Cacheable
@@ -50,6 +53,11 @@ public class Allergene {
         this.produits = produits;
     }
 
+    /**
+     * Ajoute un produit à la liste des produits de l'allergène.
+     *
+     * @param produit le produit à ajouter
+     */
     public void addProduit(Produit produit) {
         produits.add(produit);
     }
@@ -63,6 +71,13 @@ public class Allergene {
                 '}';
     }
 
+    /**
+     * Indique si l'objet spécifié est égal à cet allergène.
+     * Deux allergènes sont considérés égaux si ils ont le même libellé.
+     *
+     * @param o l'objet à comparer avec cet allergène
+     * @return true si l'objet spécifié est égal à cet allergène, false sinon
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -75,6 +90,12 @@ public class Allergene {
         return libelle.equals(allergene.libelle);
     }
 
+    /**
+     * Retourne un code de hachage pour cet allergène.
+     * Le code de hachage est basé sur le libellé de l'allergène.
+     *
+     * @return le code de hachage de l'allergène
+     */
     @Override
     public int hashCode() {
         return libelle.hashCode();

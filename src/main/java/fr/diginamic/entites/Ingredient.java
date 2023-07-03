@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/** Classe permettant de définir l'entité ingredient
+ *
+ */
 @Entity
 @Table(name="INGREDIENT")
 @Cacheable
@@ -49,6 +52,11 @@ public class Ingredient {
         this.produits = produits;
     }
 
+    /**
+     * Ajoute un produit à la liste des produits.
+     *
+     * @param produit le produit à ajouter
+     */
     public void addProduit(Produit produit) {
         produits.add(produit);
     }
@@ -57,6 +65,14 @@ public class Ingredient {
     public String toString() {
         return libelle ;
     }
+
+    /**
+     * Indique si l'objet spécifié est égal à cet ingrédient.
+     * Deux ingrédients sont considérés égaux s'ils ont le même libellé.
+     *
+     * @param o l'objet à comparer avec cet ingrédient
+     * @return true si l'objet spécifié est égal à cet ingrédient, false sinon
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,6 +85,12 @@ public class Ingredient {
         return Objects.equals(libelle, ingredient.libelle);
     }
 
+    /**
+     * Retourne un code de hachage pour cet ingrédient.
+     * Le code de hachage est basé sur le libellé de l'ingrédient.
+     *
+     * @return le code de hachage de l'ingrédient
+     */
     @Override
     public int hashCode() {
         return Objects.hash(libelle);

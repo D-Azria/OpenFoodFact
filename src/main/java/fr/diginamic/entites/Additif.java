@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/** Classe permettant de définir l'entité additif
+ *
+ */
 @Entity
 @Table(name="ADDITIF")
 @Cacheable
@@ -59,6 +62,12 @@ public class Additif {
     public void setProduits(Set<Produit> produits) {
         this.produits = produits;
     }
+
+    /**
+     * Ajoute un produit à la liste des produits de l'additif.
+     *
+     * @param produit le produit à ajouter
+     */
     public void addProduit(Produit produit) {
         produits.add(produit);
     }
@@ -68,6 +77,13 @@ public class Additif {
         return "Additif : " + code + " - " + libelle ;
     }
 
+    /**
+     * Indique si l'objet spécifié est égal à cet additif.
+     * Deux additifs sont considérés égaux si ils ont le même code et le même libellé.
+     *
+     * @param o l'objet à comparer avec cet additif
+     * @return true si l'objet spécifié est égal à cet additif, false sinon
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -80,6 +96,12 @@ public class Additif {
         return Objects.equals(code, additif.code) && Objects.equals(libelle, additif.libelle);
     }
 
+    /**
+     * Retourne un code de hachage pour cet additif.
+     * Le code de hachage est basé sur le code et le libellé de l'additif.
+     *
+     * @return le code de hachage de l'additif
+     */
     @Override
     public int hashCode() {
         return Objects.hash(code, libelle);

@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
+/** Classe permettant de définir l'entité produit
+ *
+ */
 @Entity
 @Table(name="PRODUIT")
 @Cacheable
@@ -130,6 +134,13 @@ public class Produit {
         this.categorie = categorie;
     }
 
+    /**
+     * Ajoute un additif au produit.
+     * Si l'additif est différent de null, il est ajouté à la liste des additifs du produit
+     * et le produit est ajouté à la liste des produits de l'additif.
+     *
+     * @param additif l'additif à ajouter
+     */
     public void addAdditif(Additif additif){
         if(additif != null){
             additifs.add(additif);
@@ -137,6 +148,13 @@ public class Produit {
         }
     }
 
+    /**
+     * Ajoute un allergène au produit.
+     * Si l'allergène est différent de null, il est ajouté à la liste des allergènes du produit
+     * et le produit est ajouté à la liste des produits de l'allergène.
+     *
+     * @param allergene l'allergène à ajouter
+     */
     public void addAllergenes(Allergene allergene){
         if(allergene != null){
             allergenes.add(allergene);
@@ -144,6 +162,13 @@ public class Produit {
         }
     }
 
+    /**
+     * Ajoute un ingrédient au produit.
+     * Si l'ingrédient est différent de null, il est ajouté à la liste des ingrédients du produit
+     * et le produit est ajouté à la liste des produits de l'ingrédient.
+     *
+     * @param ingredient l'ingrédient à ajouter
+     */
     public void addIngredient(Ingredient ingredient){
         if(ingredient != null){
             ingredients.add(ingredient);
